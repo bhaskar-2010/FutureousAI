@@ -38,7 +38,8 @@ Student Question: ${question}
 `;
 
     try {
-      const responseText = await generateCounselorResponse(promptContext, history || []);
+      const rawResponse = await generateCounselorResponse(promptContext, history || []);
+      const responseText = rawResponse || "I am sorry, but I am unable to provide a response right now.";
       responseCache.set(cacheKey, { response: responseText, isFallback: false, timestamp: Date.now() });
       return NextResponse.json({ response: responseText, isFallback: false });
     } catch (geminiError: any) {
