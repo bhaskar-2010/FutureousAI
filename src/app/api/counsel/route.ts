@@ -7,6 +7,7 @@ const responseCache = new Map<string, { response: string, isFallback: boolean, t
 const CACHE_TTL = 1000 * 60 * 10; // 10 minutes
 
 export async function POST(req: Request) {
+  console.log("Counsel API Started");
   try {
     const body = await req.json();
     const { question, profile, interests, aptitude, history, demoMode } = body;
@@ -43,9 +44,8 @@ Student Question: ${question}
       responseCache.set(cacheKey, { response: responseText, isFallback: false, timestamp: Date.now() });
       return NextResponse.json({ response: responseText, isFallback: false });
     } catch (geminiError: any) {
-      if (process.env.NODE_ENV !== "production") {
-        console.error("Gemini failed completely, falling back to local intelligence:", geminiError);
-      }
+      // Unconditionally log the error so we can debug on Vercel
+      console.error("Gemini failed completely, falling back to local intelligence:", geminiError);
       
       const localResponse = generateLocalCounselorResponse(question, profile);
       responseCache.set(cacheKey, { response: localResponse, isFallback: true, timestamp: Date.now() });

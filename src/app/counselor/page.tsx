@@ -123,11 +123,11 @@ export default function CounselorPage() {
                 </span>
               ) : isFallback ? (
                 <span className="flex items-center gap-1 text-xs bg-yellow-400/10 text-yellow-400 border border-yellow-400/20 px-2 py-0.5 rounded-full">
-                  <WifiOff className="w-3 h-3" /> Fallback Mode Active
+                  <WifiOff className="w-3 h-3" /> Backup Counselor Mode
                 </span>
               ) : (
                 <span className="flex items-center gap-1 text-xs bg-green-400/10 text-green-400 border border-green-400/20 px-2 py-0.5 rounded-full">
-                  <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" /> Gemini AI Active
+                  <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" /> AI Counselor Online
                 </span>
               )}
             </h1>
