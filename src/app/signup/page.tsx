@@ -11,6 +11,8 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Logo from "@/assets/logo/futureousai-logo.png";
 import { getFriendlyErrorMessage } from "@/lib/auth-errors";
+import { useAuth } from "@/components/providers/AuthContext";
+import { useEffect } from "react";
 
 export default function SignupPage() {
   const [name, setName] = useState("");
@@ -23,6 +25,13 @@ export default function SignupPage() {
   const [isSigningIn, setIsSigningIn] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const router = useRouter();
+  const { user, loading: authLoading } = useAuth();
+
+  useEffect(() => {
+    if (!authLoading && user && !isSuccess) {
+      router.push("/dashboard");
+    }
+  }, [user, authLoading, isSuccess, router]);
 
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -49,6 +58,7 @@ export default function SignupPage() {
         router.push("/onboarding");
       }, 800);
     } catch (err: any) {
+      console.error("Email signup failed", err);
       setError(getFriendlyErrorMessage(err));
       setLoading(false);
     }
@@ -62,8 +72,9 @@ export default function SignupPage() {
     console.log("Google popup started");
     try {
       const result = await signInWithPopup(auth, provider);
-      console.log("Google popup success");
       const user = result.user;
+      console.log("Google popup success - User authenticated:", user.uid);
+      console.log("User object received:", user);
       const ref = doc(db, "users", user.uid);
       const snap = await getDoc(ref);
 
@@ -86,12 +97,16 @@ export default function SignupPage() {
           profileCompleted: false,
         });
         setIsSuccess(true);
+        console.log("Redirect triggered to /onboarding");
         setTimeout(() => {
           router.push("/onboarding");
         }, 800);
       }
     } catch (err: any) {
-      console.log("Google popup failed", err);
+      console.error("Google popup failed");
+      console.error("error.code:", err.code);
+      console.error("error.message:", err.message);
+      console.error("error.stack:", err.stack);
       setError(getFriendlyErrorMessage(err));
       setIsSigningIn(false);
     }

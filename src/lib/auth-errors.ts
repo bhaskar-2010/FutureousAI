@@ -12,18 +12,20 @@ export function getFriendlyErrorMessage(error: any): string {
   // Handle specific Firebase auth error codes
   switch (error.code) {
     case "auth/invalid-credential":
-    case "auth/user-not-found":
     case "auth/wrong-password":
-      return "Invalid email or password. Please try again.";
+      return "Incorrect password";
+    case "auth/user-not-found":
+      return "Account not found";
     case "auth/email-already-in-use":
-      return "This email is already registered. Please log in.";
+      return "Account already exists";
     case "auth/invalid-email":
       return "Please enter a valid email address.";
     case "auth/weak-password":
       return "Password is too weak. Please use at least 6 characters.";
     case "auth/popup-closed-by-user":
+      return "Google sign-in was cancelled";
     case "auth/cancelled-popup-request":
-      return "Google sign-in was interrupted. Please try again.";
+      return "Another sign-in popup is already active";
     case "auth/popup-blocked":
       return "Pop-up blocked by browser. Please allow pop-ups for this site.";
     case "auth/network-request-failed":
