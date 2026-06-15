@@ -20,8 +20,6 @@ import {
 import { Radar, Bar } from "react-chartjs-2";
 import { Brain, Target, Compass, Download, MessageSquare, ChevronRight, Star } from "lucide-react";
 import Link from "next/link";
-import Image from "next/image";
-import Logo from "@/assets/logo/futureousai-logo.png";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 
@@ -193,8 +191,7 @@ export default function AnalysisPage() {
       {/* Header */}
       <div className="relative pt-16 pb-24 px-4 overflow-hidden mesh-bg">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/30 via-secondary/20 to-accent/10" />
-        <div className="container mx-auto relative z-10 flex flex-col items-center md:items-start text-center md:text-left">
-          <Image src={Logo} alt="FutureousAI Logo" width={56} height={56} className="object-contain drop-shadow-[0_0_15px_rgba(124,58,237,0.3)] mb-4" />
+        <div className="container mx-auto relative z-10">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Your AI Career Analysis</h1>
           <p className="text-lg opacity-90 max-w-2xl">
             Based on your Class {profile.studentClass} {profile.stream !== "None" ? profile.stream : ""} profile, 

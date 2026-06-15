@@ -65,16 +65,6 @@ export default function LandingPage() {
               <span className="text-sm font-bold text-white tracking-wide uppercase">Premium AI Career Guidance</span>
             </motion.div>
 
-            {/* Hero Logo */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.3 }}
-              className="flex justify-center mb-8"
-            >
-              <Image src={Logo} alt="FutureousAI Hero Logo" className="w-auto h-20 md:h-24 object-contain drop-shadow-[0_0_25px_rgba(124,58,237,0.4)]" priority />
-            </motion.div>
-
             <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 leading-tight text-white">
               Stop Guessing. Start <br className="hidden md:block" />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#22D3EE] via-[#7C3AED] to-[#F0ABFC]">Designing Your Future.</span>
@@ -417,7 +407,7 @@ export default function LandingPage() {
       <footer className="py-12 border-t border-slate-800 bg-[#050810]">
         <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-6 text-sm text-[#94A3B8]">
           <div className="flex items-center gap-3">
-            <Image src={Logo} alt="FutureousAI Logo" width={40} height={40} className="object-contain drop-shadow-[0_0_15px_rgba(124,58,237,0.3)]" />
+            <Image src={Logo} alt="FutureousAI Logo" width={36} height={36} className="rounded-md object-contain shadow-lg" />
             <div className="font-bold text-white tracking-widest text-lg">FUTUREOUS<span className="text-[#22D3EE]">AI</span></div>
           </div>
           <p>© {new Date().getFullYear()} FutureousAI EdTech. Empowering Indian Students.</p>
