@@ -8,7 +8,7 @@ import { useAuth } from "@/components/providers/AuthContext";
 import { careersData } from "@/data/careers";
 import {
   ClipboardList, Compass, MessageSquare, BarChart3,
-  ArrowRight, Sparkles, Trophy, User, BookOpen, Clock, Heart, Zap, BrainCircuit
+  ArrowRight, Sparkles, Trophy, User, BookOpen, Clock, Heart, Zap, BrainCircuit, CheckCircle2
 } from "lucide-react";
 
 export default function DashboardPage() {
@@ -210,17 +210,17 @@ export default function DashboardPage() {
                   <span className="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#7C3AED] to-[#22D3EE]">{completionPercentage}%</span>
                 </div>
                 <div className="w-full bg-[#111827] rounded-full h-3 border border-slate-800 overflow-hidden">
-                  <div className="bg-gradient-to-r from-[#7C3AED] to-[#22D3EE] h-full rounded-full transition-all duration-1000 ease-out" style={{ width: \`\${completionPercentage}%\` }} />
+                  <div className="bg-gradient-to-r from-[#7C3AED] to-[#22D3EE] h-full rounded-full transition-all duration-1000 ease-out" style={{ width: `${completionPercentage}%` }} />
                 </div>
               </div>
 
               <div className="space-y-5 relative before:absolute before:inset-0 before:ml-[11px] before:-translate-x-px before:h-full before:w-0.5 before:bg-slate-800">
                 {journeySteps.map((item, i) => (
                   <div key={i} className="flex items-start gap-4 relative z-10">
-                    <div className={\`w-6 h-6 rounded-full flex items-center justify-center shrink-0 border-4 border-[#0B1020] \${item.done ? "bg-[#10B981]" : "bg-slate-700"}\`}>
+                    <div className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 border-4 border-[#0B1020] ${item.done ? "bg-[#10B981]" : "bg-slate-700"}`}>
                       {item.done && <CheckCircle2 className="w-3 h-3 text-[#0B1020]" />}
                     </div>
-                    <span className={\`text-sm mt-0.5 \${item.done ? "text-white font-bold" : "text-[#94A3B8]"}\`}>{item.label}</span>
+                    <span className={`text-sm mt-0.5 ${item.done ? "text-white font-bold" : "text-[#94A3B8]"}`}>{item.label}</span>
                   </div>
                 ))}
               </div>

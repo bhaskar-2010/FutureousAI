@@ -128,7 +128,7 @@ export async function POST(req: Request) {
       // Fallback Logic with the new complex structure
       const fallbackReport = {
         executiveSummary: {
-          shortSummary: \`\${profile.name} exhibits a balanced profile with promising indicators for a career as a \${career}.\`,
+          shortSummary: `${profile.name} exhibits a balanced profile with promising indicators for a career as a ${career}.`,
           overallRecommendation: "Proceed with structured preparation and skill enhancement."
         },
         scores: {
@@ -158,7 +158,7 @@ export async function POST(req: Request) {
           workplaceBehavior: "Likely to thrive in structured, goal-oriented environments."
         },
         strengthsAnalysis: [
-          { title: "Analytical Problem Solving", description: "Quickly dissects complex issues.", careerImpact: \`Highly beneficial for technical aspects of \${career}.\` },
+          { title: "Analytical Problem Solving", description: "Quickly dissects complex issues.", careerImpact: `Highly beneficial for technical aspects of ${career}.` },
           { title: "Intrinsic Motivation", description: "Driven by genuine interest rather than external factors.", careerImpact: "Ensures longevity and resilience in the field." }
         ],
         weaknessAnalysis: [
@@ -182,15 +182,15 @@ export async function POST(req: Request) {
         },
         parentConfidence: {
           confidenceScore: 82,
-          childStrengthAnalysis: \`\${profile.name} shows a strong natural inclination towards \${career}, particularly in problem-solving scenarios.\`,
-          observedPotential: \`The personality profile aligns well with the demands of \${career}, suggesting a comfortable fit.\`,
-          improvementOpportunities: \`Focus on developing leadership and stress management skills.\`,
-          guidanceForParents: \`Encourage participation in extracurricular activities related to \${career}.\`,
+          childStrengthAnalysis: `${profile.name} shows a strong natural inclination towards ${career}, particularly in problem-solving scenarios.`,
+          observedPotential: `The personality profile aligns well with the demands of ${career}, suggesting a comfortable fit.`,
+          improvementOpportunities: `Focus on developing leadership and stress management skills.`,
+          guidanceForParents: `Encourage participation in extracurricular activities related to ${career}.`,
           howToSupport: "Provide a structured environment for consistent study and project work.",
-          professionalSummary: \`With consistent effort, \${profile.name} has the potential to excel in this field.\`
+          professionalSummary: `With consistent effort, ${profile.name} has the potential to excel in this field.`
         },
         motivationalInsights: "Success is the sum of small efforts repeated day in and day out. Your analytical mindset is your greatest asset.",
-        finalVerdict: \`\${profile.name} shows strong promise for a career as a \${career}. Continued dedication and targeted skill development will be key to long-term success.\`
+        finalVerdict: `${profile.name} shows strong promise for a career as a ${career}. Continued dedication and targeted skill development will be key to long-term success.`
       };
 
       return NextResponse.json({ report: fallbackReport, isFallback: true });
