@@ -1,0 +1,1 @@
+const { getQuestions } = require('./src/data/questions'); console.log(getQuestions('11', 'MPC').length);

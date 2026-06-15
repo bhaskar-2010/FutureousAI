@@ -98,12 +98,16 @@ export default function OnboardingPage() {
     localStorage.setItem("futureousProfile", JSON.stringify(profileData));
     try {
       if (userId) {
-        await setDoc(doc(db, "users", userId), profileData, { merge: true });
-        await refreshProfile();
+        // Run firebase updates asynchronously without blocking navigation
+        Promise.all([
+          setDoc(doc(db, "users", userId), profileData, { merge: true }),
+          refreshProfile()
+        ]).catch(console.error);
       }
-    } catch (err) {
-      console.error(err);
+    } catch (err: any) {
+      console.error("Error saving profile to Firebase:", err);
     }
+    
     router.push("/aptitude");
   };
 
