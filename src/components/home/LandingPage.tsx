@@ -73,29 +73,117 @@ export default function LandingPage() {
               The most advanced psychometric and AI engine built specifically for Indian students. Discover your true potential, get a 7-page comprehensive report, and chat with an expert AI counselor.
             </p>
 
-            <div className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center items-center">
-              <Link
-                href="/personal-analysis/onboarding"
-                className="group relative inline-flex items-center justify-center px-8 py-4 font-bold text-white rounded-full overflow-hidden shadow-2xl shadow-[#7C3AED]/40 hover:shadow-[#7C3AED]/60 hover:scale-105 transition-all bg-gradient-to-r from-[#7C3AED] to-[#22D3EE]"
-              >
-                <span className="flex items-center gap-2">
-                  <Target className="w-5 h-5" /> Take the Premium Assessment
-                </span>
-              </Link>
-              <Link
-                href="/careers"
-                className="inline-flex items-center justify-center px-8 py-4 font-bold rounded-full border border-slate-700 bg-white/5 hover:bg-white/10 text-white hover:border-[#22D3EE]/50 transition-colors"
-              >
-                Explore 50+ Careers
-              </Link>
-            </div>
+            {/* ── Discovery Paths ── */}
+            <div className="mt-16 w-full text-left">
+              <div className="text-center mb-12">
+                <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Choose Your Career Discovery Path</h2>
+                <p className="text-[#94A3B8] text-lg max-w-2xl mx-auto">
+                  Whether you already have a dream career or are still exploring, Futureous AI has the right path for you.
+                </p>
+              </div>
 
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+                {/* Option 1: Explore Careers */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                  className="bg-[#111827]/80 backdrop-blur-xl border border-slate-800 p-8 rounded-3xl flex flex-col hover:border-[#10B981]/50 transition-all group shadow-xl"
+                >
+                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#10B981] to-[#047857] flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform">
+                    <Compass className="w-7 h-7 text-white" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-white mb-3">Explore Careers</h3>
+                  <p className="text-[#94A3B8] mb-6 flex-1 text-base leading-relaxed">
+                    Browse hundreds of careers across technology, defence, medicine, arts, business, aviation, music, design, government services and emerging industries.
+                  </p>
+                  <div className="bg-[#0B1020] p-4 rounded-xl border border-slate-800 mb-6">
+                    <span className="text-xs font-bold text-[#10B981] uppercase tracking-wider block mb-1">Perfect For</span>
+                    <span className="text-sm text-white font-medium">Students who want to discover and learn about different careers.</span>
+                  </div>
+                  <Link href="/careers" className="w-full py-4 rounded-xl font-bold text-center bg-white/5 hover:bg-white/10 text-white border border-slate-700 transition-colors">
+                    Explore Careers
+                  </Link>
+                </motion.div>
+
+                {/* Option 2: Personal Career Analysis */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                  className="bg-[#111827]/80 backdrop-blur-xl border border-slate-800 p-8 rounded-3xl flex flex-col hover:border-[#7C3AED]/50 transition-all group shadow-xl relative overflow-hidden"
+                >
+                  <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#7C3AED] to-[#F0ABFC]" />
+                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#7C3AED] to-[#6D28D9] flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform">
+                    <Target className="w-7 h-7 text-white" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-white mb-3">Personal Career Analysis</h3>
+                  <p className="text-[#94A3B8] mb-6 flex-1 text-base leading-relaxed">
+                    Already have a dream career in mind? Get a deep AI-powered analysis of your chosen career based on your interests, personality, aptitude, strengths, weaknesses and future growth potential.
+                  </p>
+                  <div className="bg-[#0B1020] p-4 rounded-xl border border-slate-800 mb-6">
+                    <span className="text-xs font-bold text-[#7C3AED] uppercase tracking-wider block mb-1">Perfect For</span>
+                    <span className="text-sm text-white font-medium">Students who already know which career they want.</span>
+                  </div>
+                  <Link href="/personal-analysis/onboarding" className="w-full py-4 rounded-xl font-bold text-center bg-gradient-to-r from-[#7C3AED] to-[#6D28D9] text-white hover:opacity-90 transition-opacity shadow-[0_0_20px_rgba(124,58,237,0.3)]">
+                    Analyze My Career
+                  </Link>
+                </motion.div>
+
+                {/* Option 3: Start Analysis */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                  className="bg-[#111827]/80 backdrop-blur-xl border border-slate-800 p-8 rounded-3xl flex flex-col hover:border-[#22D3EE]/50 transition-all group shadow-xl"
+                >
+                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#22D3EE] to-[#0284C7] flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform">
+                    <Brain className="w-7 h-7 text-white" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-white mb-3">Start Analysis</h3>
+                  <p className="text-[#94A3B8] mb-6 flex-1 text-base leading-relaxed">
+                    Not sure what career is right for you? Take the complete Futureous AI assessment and receive personalized career recommendations based on your personality, interests, aptitude and future goals.
+                  </p>
+                  <div className="bg-[#0B1020] p-4 rounded-xl border border-slate-800 mb-6">
+                    <span className="text-xs font-bold text-[#22D3EE] uppercase tracking-wider block mb-1">Perfect For</span>
+                    <span className="text-sm text-white font-medium">Students who are confused about their career path.</span>
+                  </div>
+                  <Link href="/onboarding" className="w-full py-4 rounded-xl font-bold text-center bg-gradient-to-r from-[#22D3EE] to-[#0284C7] text-white hover:opacity-90 transition-opacity shadow-[0_0_20px_rgba(34,211,238,0.3)]">
+                    Start Assessment
+                  </Link>
+                </motion.div>
+              </div>
+
+              {/* Comparison Row */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 }}
+                className="bg-[#050810]/80 backdrop-blur-md border border-slate-800 rounded-2xl p-6 flex flex-col md:flex-row items-center justify-between gap-6 max-w-4xl mx-auto"
+              >
+                <div className="flex flex-col items-center text-center md:items-start md:text-left">
+                  <span className="font-bold text-white mb-1">Explore Careers</span>
+                  <span className="text-sm text-[#10B981] flex items-center gap-1"><ArrowRight className="w-3 h-3" /> Learn about careers</span>
+                </div>
+                <div className="hidden md:block w-px h-10 bg-slate-800" />
+                <div className="flex flex-col items-center text-center md:items-start md:text-left">
+                  <span className="font-bold text-white mb-1">Personal Career Analysis</span>
+                  <span className="text-sm text-[#7C3AED] flex items-center gap-1"><ArrowRight className="w-3 h-3" /> Analyze a career you already chose</span>
+                </div>
+                <div className="hidden md:block w-px h-10 bg-slate-800" />
+                <div className="flex flex-col items-center text-center md:items-start md:text-left">
+                  <span className="font-bold text-white mb-1">Start Analysis</span>
+                  <span className="text-sm text-[#22D3EE] flex items-center gap-1"><ArrowRight className="w-3 h-3" /> Discover the best career for you</span>
+                </div>
+              </motion.div>
+            </div>
+            
             {/* Social proof */}
             <motion.div 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.5 }}
-              className="mt-14 flex flex-col items-center justify-center gap-3 text-sm text-[#94A3B8]"
+              transition={{ delay: 0.6 }}
+              className="mt-16 flex flex-col items-center justify-center gap-3 text-sm text-[#94A3B8]"
             >
               <div className="flex items-center gap-1">
                 {[...Array(5)].map((_, i) => <Star key={i} className="w-5 h-5 text-yellow-400 fill-yellow-400" />)}
