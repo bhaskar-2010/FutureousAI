@@ -27,7 +27,7 @@ export default function Navbar() {
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 group">
-          <Image src={Logo} alt="FutureousAI Logo" width={32} height={32} className="rounded-md object-contain" />
+          <Image src={Logo} alt="FutureousAI Logo" width={36} height={36} className="object-contain" />
           <span className="text-xl font-bold gradient-text">
             FutureousAI
           </span>

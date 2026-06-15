@@ -110,7 +110,7 @@ export default function LoginPage() {
         <div className="glass-strong rounded-2xl p-8 shadow-2xl">
           <div className="text-center mb-8">
             <div className="flex items-center justify-center gap-3 mb-6">
-              <Image src={Logo} alt="FutureousAI Logo" width={48} height={48} className="rounded-xl object-contain shadow-lg shadow-primary/20" />
+              <Image src={Logo} alt="FutureousAI Logo" width={56} height={56} className="object-contain drop-shadow-[0_0_15px_rgba(124,58,237,0.3)]" />
               <span className="text-2xl font-bold gradient-text">FutureousAI</span>
             </div>
             <h1 className="text-3xl font-bold mb-2">Welcome Back</h1>
