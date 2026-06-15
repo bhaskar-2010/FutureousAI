@@ -47,12 +47,8 @@ export async function POST(req: Request) {
           "personality": 80,
           "aptitude": 75,
           "commitment": 90,
-          "leadership": 82,
-          "communication": 88,
-          "problemSolving": 79,
-          "discipline": 85,
-          "creativity": 80,
-          "finalFit": 82
+          "finalFit": 82,
+          "careerCompatibility": 85
         },
         "classification": "Strong Match",
         "detailedSkills": [
@@ -60,24 +56,39 @@ export async function POST(req: Request) {
           { "skill": "Communication", "score": 88, "evaluation": "string" },
           { "skill": "Creativity", "score": 80, "evaluation": "string" },
           { "skill": "Discipline", "score": 85, "evaluation": "string" },
-          { "skill": "Problem Solving", "score": 79, "evaluation": "string" },
-          { "skill": "Career Interest", "score": 85, "evaluation": "string" },
-          { "skill": "Aptitude", "score": 75, "evaluation": "string" },
-          { "skill": "Commitment", "score": 90, "evaluation": "string" }
+          { "skill": "Problem Solving", "score": 79, "evaluation": "string" }
         ],
+        "subjectPerformance": [
+          { "subject": "Mathematics", "score": 80, "analysis": "string" },
+          { "subject": "Science/Technology", "score": 85, "analysis": "string" },
+          { "subject": "Language/Communication", "score": 88, "analysis": "string" }
+        ],
+        "learningStyle": {
+          "primaryStyle": "Visual/Auditory/Kinesthetic",
+          "description": "string",
+          "bestStudyMethods": ["string"]
+        },
+        "personalityInsights": {
+          "archetype": "string",
+          "traits": ["string"],
+          "workplaceBehavior": "string"
+        },
         "strengthsAnalysis": [
-          { "title": "string", "score": 90, "description": "string", "careerImpact": "string" }
+          { "title": "string", "description": "string", "careerImpact": "string" }
         ],
-        "improvementAnalysis": [
-          { "area": "string", "currentStatus": "string", "suggestedImprovement": "string", "careerBenefit": "string" }
+        "weaknessAnalysis": [
+          { "title": "string", "description": "string", "mitigationStrategy": "string" }
         ],
         "roadmap": {
-          "shortTerm": ["string", "string"],
-          "mediumTerm": ["string", "string"],
-          "longTerm": ["string", "string"]
+          "shortTerm": ["string"],
+          "mediumTerm": ["string"],
+          "longTerm": ["string"]
         },
+        "futureGrowthPlan": [
+          "string"
+        ],
         "recommendedCareers": {
-          "topMatching": ["string", "string"],
+          "topMatching": ["string"],
           "alternative": ["string"],
           "related": ["string"]
         },
@@ -90,6 +101,7 @@ export async function POST(req: Request) {
           "howToSupport": "string paragraph",
           "professionalSummary": "string paragraph"
         },
+        "motivationalInsights": "string paragraph",
         "finalVerdict": "string paragraph summarizing the overall assessment"
       }
     `;
@@ -116,13 +128,11 @@ export async function POST(req: Request) {
       // Fallback Logic with the new complex structure
       const fallbackReport = {
         executiveSummary: {
-          shortSummary: `${profile.name} exhibits a balanced profile with promising indicators for a career as a ${career}.`,
+          shortSummary: \`\${profile.name} exhibits a balanced profile with promising indicators for a career as a \${career}.\`,
           overallRecommendation: "Proceed with structured preparation and skill enhancement."
         },
         scores: {
-          interest: 85, personality: 80, aptitude: 75, commitment: 80,
-          leadership: 75, communication: 80, problemSolving: 85, discipline: 80, creativity: 75,
-          finalFit: 81
+          interest: 85, personality: 80, aptitude: 75, commitment: 80, finalFit: 81, careerCompatibility: 83
         },
         classification: "Strong Match",
         detailedSkills: [
@@ -130,24 +140,41 @@ export async function POST(req: Request) {
           { skill: "Communication", score: 80, evaluation: "Articulates ideas clearly under normal conditions." },
           { skill: "Creativity", score: 75, evaluation: "Capable of standard innovative thinking." },
           { skill: "Discipline", score: 80, evaluation: "Maintains focus during extended tasks." },
-          { skill: "Problem Solving", score: 85, evaluation: "Strong analytical approach to unexpected issues." },
-          { skill: "Career Interest", score: 85, evaluation: "High intrinsic motivation for the field." },
-          { skill: "Aptitude", score: 75, evaluation: "Solid foundational cognitive abilities." },
-          { skill: "Commitment", score: 80, evaluation: "Demonstrates long-term perseverance." }
+          { skill: "Problem Solving", score: 85, evaluation: "Strong analytical approach to unexpected issues." }
         ],
+        subjectPerformance: [
+          { subject: "Mathematics/Logic", score: 80, analysis: "Solid foundational understanding." },
+          { subject: "Science/Technology", score: 85, analysis: "Shows strong aptitude for technical concepts." },
+          { subject: "Language/Communication", score: 78, analysis: "Good expressive abilities." }
+        ],
+        learningStyle: {
+          primaryStyle: "Visual & Kinesthetic",
+          description: "Learns best through practical application and visual models.",
+          bestStudyMethods: ["Mind mapping", "Hands-on projects", "Video tutorials"]
+        },
+        personalityInsights: {
+          archetype: "The Analytical Achiever",
+          traits: ["Detail-oriented", "Perseverant", "Logical"],
+          workplaceBehavior: "Likely to thrive in structured, goal-oriented environments."
+        },
         strengthsAnalysis: [
-          { title: "Analytical Problem Solving", score: 85, description: "Quickly dissects complex issues.", careerImpact: `Highly beneficial for technical aspects of ${career}.` },
-          { title: "Intrinsic Motivation", score: 85, description: "Driven by genuine interest rather than external factors.", careerImpact: "Ensures longevity and resilience in the field." }
+          { title: "Analytical Problem Solving", description: "Quickly dissects complex issues.", careerImpact: \`Highly beneficial for technical aspects of \${career}.\` },
+          { title: "Intrinsic Motivation", description: "Driven by genuine interest rather than external factors.", careerImpact: "Ensures longevity and resilience in the field." }
         ],
-        improvementAnalysis: [
-          { area: "Leadership Presence", currentStatus: "Developing", suggestedImprovement: "Take charge of small group projects.", careerBenefit: "Essential for senior roles." },
-          { area: "Stress Management", currentStatus: "Adequate", suggestedImprovement: "Practice time-bound decision making.", careerBenefit: "Prevents burnout during critical phases." }
+        weaknessAnalysis: [
+          { title: "Public Speaking Anxiety", description: "Tends to be nervous when presenting to large groups.", mitigationStrategy: "Start with small group presentations and gradually scale up." },
+          { title: "Over-analyzing", description: "Sometimes gets stuck in 'analysis paralysis'.", mitigationStrategy: "Set strict time limits for decision making." }
         ],
         roadmap: {
           shortTerm: ["Research foundational concepts", "Start a small related project"],
           mediumTerm: ["Complete a certification or course", "Build a portfolio"],
           longTerm: ["Prepare for relevant entrance exams", "Seek internships"]
         },
+        futureGrowthPlan: [
+          "Establish a strong foundation in core subjects.",
+          "Develop secondary soft skills like leadership and advanced communication.",
+          "Network with professionals in the field."
+        ],
         recommendedCareers: {
           topMatching: [career, "Related Field Analyst"],
           alternative: ["Management Trainee"],
@@ -155,14 +182,15 @@ export async function POST(req: Request) {
         },
         parentConfidence: {
           confidenceScore: 82,
-          childStrengthAnalysis: `${profile.name} shows a strong natural inclination towards ${career}, particularly in problem-solving scenarios.`,
-          observedPotential: `The personality profile aligns well with the demands of ${career}, suggesting a comfortable fit.`,
-          improvementOpportunities: `Focus on developing leadership and stress management skills.`,
-          guidanceForParents: `Encourage participation in extracurricular activities related to ${career}.`,
+          childStrengthAnalysis: \`\${profile.name} shows a strong natural inclination towards \${career}, particularly in problem-solving scenarios.\`,
+          observedPotential: \`The personality profile aligns well with the demands of \${career}, suggesting a comfortable fit.\`,
+          improvementOpportunities: \`Focus on developing leadership and stress management skills.\`,
+          guidanceForParents: \`Encourage participation in extracurricular activities related to \${career}.\`,
           howToSupport: "Provide a structured environment for consistent study and project work.",
-          professionalSummary: `With consistent effort, ${profile.name} has the potential to excel in this field.`
+          professionalSummary: \`With consistent effort, \${profile.name} has the potential to excel in this field.\`
         },
-        finalVerdict: `${profile.name} shows strong promise for a career as a ${career}. Continued dedication and targeted skill development will be key to long-term success.`
+        motivationalInsights: "Success is the sum of small efforts repeated day in and day out. Your analytical mindset is your greatest asset.",
+        finalVerdict: \`\${profile.name} shows strong promise for a career as a \${career}. Continued dedication and targeted skill development will be key to long-term success.\`
       };
 
       return NextResponse.json({ report: fallbackReport, isFallback: true });

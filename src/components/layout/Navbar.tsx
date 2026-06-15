@@ -7,6 +7,8 @@ import { signOut } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 import { useAuth } from "@/components/providers/AuthContext";
 import { LayoutDashboard, User, LogOut, Sparkles, Menu, X } from "lucide-react";
+import Image from "next/image";
+import Logo from "@/assets/logo/futureousai-logo.png";
 
 export default function Navbar() {
   const { user, profile } = useAuth();
@@ -25,9 +27,7 @@ export default function Navbar() {
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 group">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-            <Sparkles className="w-4 h-4 text-white" />
-          </div>
+          <Image src={Logo} alt="FutureousAI Logo" width={32} height={32} className="rounded-md object-contain" />
           <span className="text-xl font-bold gradient-text">
             FutureousAI
           </span>
@@ -37,6 +37,9 @@ export default function Navbar() {
         <nav className="hidden md:flex gap-6 items-center">
           <Link href="/how-it-works" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
             How It Works
+          </Link>
+          <Link href="/reviews" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+            Reviews
           </Link>
           <Link href="/careers" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
             Careers
@@ -106,6 +109,7 @@ export default function Navbar() {
       {menuOpen && (
         <div className="md:hidden glass-strong border-t border-border/50 py-4 px-4 flex flex-col gap-3">
           <Link href="/how-it-works" onClick={() => setMenuOpen(false)} className="text-sm font-medium py-2">How It Works</Link>
+          <Link href="/reviews" onClick={() => setMenuOpen(false)} className="text-sm font-medium py-2">Reviews</Link>
           <Link href="/careers" onClick={() => setMenuOpen(false)} className="text-sm font-medium py-2">Careers</Link>
           {user ? (
             <>

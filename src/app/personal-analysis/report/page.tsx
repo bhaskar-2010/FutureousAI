@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { 
-  Download, Brain, Target, Star, TrendingUp, Compass, ChevronRight, CheckCircle2, AlertTriangle, Users, BookOpen
+  Download, Brain, Target, Star, TrendingUp, Compass, ChevronRight, CheckCircle2, AlertTriangle, Users, BookOpen, User, Book, Zap, Lightbulb
 } from "lucide-react";
 import {
   Chart as ChartJS,
@@ -81,7 +81,6 @@ export default function PremiumReportPage() {
     try {
       const pdf = new jsPDF('p', 'mm', 'a4');
       const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = pdf.internal.pageSize.getHeight();
       
       const pages = [
         document.getElementById('pdf-page-1'),
@@ -97,7 +96,6 @@ export default function PremiumReportPage() {
         const pageElement = pages[i];
         if (!pageElement) continue;
 
-        // Briefly ensure the element is visible and properly styled for capture
         pageElement.style.borderRadius = '0';
         pageElement.style.border = 'none';
 
@@ -105,22 +103,17 @@ export default function PremiumReportPage() {
           scale: 2, 
           useCORS: true,
           backgroundColor: '#0B1020',
-          windowWidth: 1200 // Force a consistent rendering width
+          windowWidth: 1000
         });
         
-        // Restore styling
         pageElement.style.borderRadius = '1.5rem';
         pageElement.style.border = '1px solid #1e293b';
 
         const imgData = canvas.toDataURL('image/jpeg', 1.0);
         
-        // Calculate proportional height
         const imgProps = pdf.getImageProperties(imgData);
         const height = (imgProps.height * pdfWidth) / imgProps.width;
         
-        // If it's taller than A4, it will just scale down to fit the page vertically,
-        // or we can just let it overflow if we strictly bounded the HTML. 
-        // Here we align to top.
         pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, height);
         
         if (i < pages.length - 1) {
@@ -169,14 +162,14 @@ export default function PremiumReportPage() {
       {
         label: 'Skill Matrix',
         data: [
-          report.scores.leadership, 
-          report.scores.communication, 
-          report.scores.creativity, 
-          report.scores.discipline, 
-          report.scores.problemSolving, 
-          report.scores.aptitude
+          report.scores?.leadership || 80, 
+          report.scores?.communication || 80, 
+          report.scores?.creativity || 80, 
+          report.scores?.discipline || 80, 
+          report.scores?.problemSolving || 80, 
+          report.scores?.aptitude || 80
         ],
-        backgroundColor: 'rgba(34, 211, 238, 0.2)', // Secondary Accent #22D3EE
+        backgroundColor: 'rgba(34, 211, 238, 0.2)',
         borderColor: '#22D3EE',
         borderWidth: 2,
         pointBackgroundColor: '#22D3EE',
@@ -199,12 +192,12 @@ export default function PremiumReportPage() {
   };
 
   const PageContainer = ({ id, children }: { id: string, children: React.ReactNode }) => (
-    <div id={id} className="w-full max-w-[1000px] mx-auto min-h-[1414px] bg-[#0B1020] text-white flex flex-col mb-12 border border-slate-800 rounded-3xl overflow-hidden relative shadow-2xl">
+    <div id={id} className="w-[1000px] mx-auto min-h-[1414px] bg-[#0B1020] text-white flex flex-col mb-12 border border-slate-800 rounded-3xl overflow-hidden relative shadow-2xl shrink-0" style={{ pageBreakInside: 'avoid' }}>
       <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-[#7C3AED] to-[#22D3EE]" />
       <div className="flex-1 p-12 flex flex-col">
         {children}
       </div>
-      <div className="px-12 py-6 border-t border-slate-800 flex justify-between items-center text-[#94A3B8] text-sm">
+      <div className="px-12 py-6 border-t border-slate-800 flex justify-between items-center text-[#94A3B8] text-sm mt-auto">
         <div className="flex items-center gap-2"><Star className="w-4 h-4 text-[#7C3AED]" /> FutureousAI Assessment Report</div>
         <div>{profile.name} • {profile.dreamCareer}</div>
       </div>
@@ -215,7 +208,7 @@ export default function PremiumReportPage() {
     <div className="min-h-screen bg-[#050810] pb-24 font-sans text-white">
       {/* Sticky Action Bar */}
       <div className="sticky top-0 z-50 bg-[#0B1020]/90 backdrop-blur-md border-b border-slate-800 shadow-xl">
-        <div className="container mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+        <div className="container mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center gap-4 max-w-[1000px]">
           <div className="font-bold text-xl flex items-center gap-2 text-white">
             <Target className="text-[#22D3EE]" /> Premium Analysis Complete
           </div>
@@ -233,11 +226,11 @@ export default function PremiumReportPage() {
         </div>
       </div>
 
-      <div className="container mx-auto px-4 pt-12">
+      <div className="container mx-auto px-4 pt-12 flex flex-col items-center">
         
         {/* PAGE 1: COVER PAGE */}
         <PageContainer id="pdf-page-1">
-          <div className="flex-1 flex flex-col justify-center items-center text-center relative">
+          <div className="flex-1 flex flex-col justify-center items-center text-center relative h-full">
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#7C3AED]/10 blur-[120px] rounded-full pointer-events-none" />
             
             <div className="w-24 h-24 rounded-3xl bg-[#111827] border border-slate-800 flex items-center justify-center shadow-[0_0_50px_rgba(124,58,237,0.2)] mb-12 relative z-10">
@@ -245,11 +238,11 @@ export default function PremiumReportPage() {
             </div>
             
             <h3 className="text-[#22D3EE] font-bold tracking-[0.3em] uppercase text-sm mb-6 relative z-10">Confidential Assessment Report</h3>
-            <h1 className="text-5xl md:text-7xl font-black mb-8 text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-400 leading-tight relative z-10">
+            <h1 className="text-5xl md:text-7xl font-black mb-8 text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-400 leading-tight relative z-10 px-8">
               {profile.dreamCareer}
             </h1>
             
-            <div className="bg-[#111827] border border-slate-800 rounded-3xl p-8 max-w-2xl w-full mx-auto relative z-10 shadow-2xl">
+            <div className="bg-[#111827] border border-slate-800 rounded-3xl p-8 max-w-2xl w-full mx-auto relative z-10 shadow-2xl mt-16">
               <div className="grid grid-cols-2 gap-8 text-left">
                 <div>
                   <p className="text-[#94A3B8] text-sm uppercase tracking-wider mb-1">Student Profile</p>
@@ -268,6 +261,10 @@ export default function PremiumReportPage() {
                   <p className="text-2xl font-bold text-white">{new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
                 </div>
               </div>
+            </div>
+            
+            <div className="mt-32 max-w-xl mx-auto italic text-[#94A3B8] leading-relaxed relative z-10">
+              "{report.motivationalInsights}"
             </div>
           </div>
         </PageContainer>
@@ -292,7 +289,7 @@ export default function PremiumReportPage() {
             
             <div className="bg-gradient-to-br from-[#7C3AED]/20 to-[#22D3EE]/10 p-8 rounded-3xl border border-[#7C3AED]/30 flex flex-col items-center justify-center text-center">
               <p className="text-[#94A3B8] font-bold uppercase tracking-widest text-sm mb-2">Career Fit Score</p>
-              <div className="text-7xl font-black text-white mb-4">{report.scores.finalFit}</div>
+              <div className="text-7xl font-black text-white mb-4">{report.scores.finalFit || report.scores.careerCompatibility}</div>
               <div className="px-4 py-1.5 rounded-full bg-[#10B981]/20 text-[#10B981] font-bold text-sm border border-[#10B981]/30">
                 {report.classification}
               </div>
@@ -303,9 +300,9 @@ export default function PremiumReportPage() {
             <TrendingUp className="text-[#22D3EE]" /> Visual Analytics
           </h2>
 
-          <div className="grid md:grid-cols-2 gap-8 flex-1">
+          <div className="grid grid-cols-2 gap-8 flex-1">
             <div className="bg-[#111827] p-8 rounded-3xl border border-slate-800 flex items-center justify-center">
-              <div className="w-full max-w-[400px] aspect-square">
+              <div className="w-full max-w-[350px] aspect-square">
                 <Radar data={chartData} options={chartOptions as any} />
               </div>
             </div>
@@ -331,34 +328,76 @@ export default function PremiumReportPage() {
           </div>
         </PageContainer>
 
-        {/* PAGE 3: DETAILED SKILL BREAKDOWN */}
+        {/* PAGE 3: DETAILED SKILL & LEARNING BREAKDOWN */}
         <PageContainer id="pdf-page-3">
           <h2 className="text-3xl font-bold mb-8 text-white flex items-center gap-3">
-            <Brain className="text-[#7C3AED]" /> Detailed Skill Evaluation
+            <User className="text-[#7C3AED]" /> Personality & Learning Style
+          </h2>
+
+          <div className="grid grid-cols-2 gap-6 mb-12">
+            <div className="bg-[#111827] p-8 rounded-3xl border border-slate-800">
+              <h3 className="text-[#94A3B8] text-sm uppercase font-bold tracking-wider mb-2">Personality Archetype</h3>
+              <p className="text-2xl font-bold text-[#22D3EE] mb-4">{report.personalityInsights.archetype}</p>
+              <div className="flex flex-wrap gap-2 mb-4">
+                {report.personalityInsights.traits.map((t: string, i: number) => (
+                  <span key={i} className="text-xs bg-white/5 border border-slate-700 px-3 py-1 rounded-full">{t}</span>
+                ))}
+              </div>
+              <p className="text-[#94A3B8] leading-relaxed text-sm">
+                <span className="text-white font-medium">Workplace Behavior: </span>
+                {report.personalityInsights.workplaceBehavior}
+              </p>
+            </div>
+
+            <div className="bg-[#111827] p-8 rounded-3xl border border-slate-800">
+              <h3 className="text-[#94A3B8] text-sm uppercase font-bold tracking-wider mb-2">Primary Learning Style</h3>
+              <p className="text-2xl font-bold text-[#10B981] mb-4">{report.learningStyle.primaryStyle}</p>
+              <p className="text-[#94A3B8] leading-relaxed text-sm mb-4">{report.learningStyle.description}</p>
+              <h4 className="text-white font-semibold text-sm mb-2">Best Study Methods:</h4>
+              <ul className="space-y-1">
+                {report.learningStyle.bestStudyMethods.map((m: string, i: number) => (
+                  <li key={i} className="flex items-center gap-2 text-[#94A3B8] text-sm">
+                    <div className="w-1.5 h-1.5 rounded-full bg-[#10B981]" /> {m}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <h2 className="text-3xl font-bold mb-8 text-white flex items-center gap-3">
+            <Brain className="text-[#22D3EE]" /> Subject Performance Analysis
           </h2>
           
-          <div className="bg-[#111827] rounded-3xl border border-slate-800 overflow-hidden shadow-xl flex-1">
+          <div className="grid grid-cols-3 gap-6 mb-12">
+             {report.subjectPerformance?.map((sub: any, i: number) => (
+                <div key={i} className="bg-[#111827] p-6 rounded-3xl border border-slate-800 text-center">
+                  <div className="w-16 h-16 mx-auto rounded-full bg-[#0B1020] border-2 border-slate-700 flex items-center justify-center mb-4">
+                    <span className="text-xl font-bold text-[#22D3EE]">{sub.score}</span>
+                  </div>
+                  <h4 className="font-bold text-white mb-2">{sub.subject}</h4>
+                  <p className="text-xs text-[#94A3B8] leading-relaxed">{sub.analysis}</p>
+                </div>
+             ))}
+          </div>
+
+          <h2 className="text-3xl font-bold mb-8 text-white flex items-center gap-3">
+            <Book className="text-[#7C3AED]" /> Skill Evaluation
+          </h2>
+          <div className="bg-[#111827] rounded-3xl border border-slate-800 overflow-hidden">
             <table className="w-full text-left border-collapse">
               <thead>
                 <tr className="bg-[#0B1020] text-[#94A3B8] text-sm uppercase tracking-wider">
-                  <th className="p-6 font-semibold w-1/4">Skill Domain</th>
-                  <th className="p-6 font-semibold w-24">Score</th>
-                  <th className="p-6 font-semibold">Professional Evaluation</th>
+                  <th className="p-4 font-semibold w-1/4 border-b border-slate-800">Skill Domain</th>
+                  <th className="p-4 font-semibold border-b border-slate-800">Score</th>
+                  <th className="p-4 font-semibold border-b border-slate-800">Evaluation</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-800">
                 {report.detailedSkills.map((skill: any, i: number) => (
-                  <tr key={i} className="hover:bg-slate-800/30 transition-colors">
-                    <td className="p-6 font-bold text-white text-lg flex items-center gap-3">
-                      <div className="w-2 h-2 rounded-full bg-[#22D3EE]" />
-                      {skill.skill}
-                    </td>
-                    <td className="p-6 font-black text-xl text-[#7C3AED]">
-                      {skill.score}
-                    </td>
-                    <td className="p-6 text-[#94A3B8] leading-relaxed">
-                      {skill.evaluation}
-                    </td>
+                  <tr key={i}>
+                    <td className="p-4 font-bold text-white text-sm">{skill.skill}</td>
+                    <td className="p-4 font-black text-[#7C3AED]">{skill.score}</td>
+                    <td className="p-4 text-[#94A3B8] text-sm">{skill.evaluation}</td>
                   </tr>
                 ))}
               </tbody>
@@ -366,20 +405,17 @@ export default function PremiumReportPage() {
           </div>
         </PageContainer>
 
-        {/* PAGE 4: STRENGTHS & IMPROVEMENT ANALYSIS */}
+        {/* PAGE 4: STRENGTHS & WEAKNESSES */}
         <PageContainer id="pdf-page-4">
           <h2 className="text-3xl font-bold mb-8 text-white flex items-center gap-3">
-            <CheckCircle2 className="text-[#10B981]" /> Core Strengths Analysis
+            <CheckCircle2 className="text-[#10B981]" /> Core Strengths
           </h2>
           
           <div className="grid grid-cols-2 gap-6 mb-12">
             {report.strengthsAnalysis.map((s: any, i: number) => (
               <div key={i} className="bg-[#111827] p-8 rounded-3xl border border-slate-800 relative overflow-hidden group">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-[#10B981]/5 rounded-bl-full pointer-events-none" />
-                <div className="flex justify-between items-start mb-4">
-                  <h3 className="text-xl font-bold text-white">{s.title}</h3>
-                  <div className="px-3 py-1 bg-[#10B981]/20 text-[#10B981] font-bold rounded-lg text-sm">{s.score}/100</div>
-                </div>
+                <h3 className="text-xl font-bold text-white mb-4">{s.title}</h3>
                 <p className="text-[#94A3B8] leading-relaxed mb-6 min-h-[60px]">{s.description}</p>
                 <div className="bg-[#0B1020] p-4 rounded-xl border border-slate-800">
                   <p className="text-xs text-[#94A3B8] uppercase tracking-wider mb-1">Career Impact</p>
@@ -390,28 +426,17 @@ export default function PremiumReportPage() {
           </div>
 
           <h2 className="text-3xl font-bold mb-8 text-white flex items-center gap-3">
-            <AlertTriangle className="text-[#F59E0B]" /> Focus Areas for Improvement
+            <AlertTriangle className="text-[#F59E0B]" /> Weaknesses & Mitigation
           </h2>
           
           <div className="grid grid-cols-2 gap-6 flex-1">
-            {report.improvementAnalysis.map((imp: any, i: number) => (
+            {report.weaknessAnalysis?.map((w: any, i: number) => (
               <div key={i} className="bg-[#111827] p-8 rounded-3xl border border-slate-800">
-                <div className="flex justify-between items-center mb-6">
-                  <h3 className="text-xl font-bold text-white">{imp.area}</h3>
-                  <span className="text-sm font-semibold text-[#F59E0B] px-3 py-1 bg-[#F59E0B]/10 rounded-full border border-[#F59E0B]/20">
-                    {imp.currentStatus}
-                  </span>
-                </div>
-                
-                <div className="space-y-4">
-                  <div>
-                    <p className="text-xs text-[#94A3B8] uppercase tracking-wider mb-1">Suggested Strategy</p>
-                    <p className="text-white leading-relaxed text-sm bg-[#0B1020] p-4 rounded-xl border border-slate-800">{imp.suggestedImprovement}</p>
-                  </div>
-                  <div>
-                    <p className="text-xs text-[#94A3B8] uppercase tracking-wider mb-1">Long-term Benefit</p>
-                    <p className="text-[#22D3EE] font-medium text-sm">{imp.careerBenefit}</p>
-                  </div>
+                <h3 className="text-xl font-bold text-white mb-4">{w.title}</h3>
+                <p className="text-[#94A3B8] leading-relaxed mb-6 min-h-[60px]">{w.description}</p>
+                <div className="bg-[#0B1020] p-4 rounded-xl border border-slate-800 border-l-4 border-l-[#F59E0B]">
+                  <p className="text-xs text-[#94A3B8] uppercase tracking-wider mb-1">Mitigation Strategy</p>
+                  <p className="text-white font-medium text-sm">{w.mitigationStrategy}</p>
                 </div>
               </div>
             ))}
@@ -430,15 +455,15 @@ export default function PremiumReportPage() {
               { title: "Mid-Term Execution (3 - 12 Months)", items: report.roadmap.mediumTerm, color: "border-[#7C3AED]", bg: "bg-[#7C3AED]/10", icon: "text-[#7C3AED]" },
               { title: "Long-Term Trajectory (1+ Years)", items: report.roadmap.longTerm, color: "border-[#10B981]", bg: "bg-[#10B981]/10", icon: "text-[#10B981]" }
             ].map((phase, i) => (
-              <div key={i} className={`bg-[#111827] border-l-4 ${phase.color} rounded-r-3xl p-8 shadow-md`}>
-                <h3 className="text-xl font-bold text-white mb-6">{phase.title}</h3>
+              <div key={i} className={`bg-[#111827] border-l-4 ${phase.color} rounded-r-3xl p-6 shadow-md`}>
+                <h3 className="text-lg font-bold text-white mb-4">{phase.title}</h3>
                 <div className="grid md:grid-cols-2 gap-4">
                   {phase.items.map((item: string, j: number) => (
                     <div key={j} className="flex items-start gap-3">
-                      <div className={`mt-1 w-6 h-6 rounded-full flex items-center justify-center shrink-0 ${phase.bg} ${phase.icon}`}>
-                        <ChevronRight className="w-4 h-4" />
+                      <div className={`mt-0.5 w-5 h-5 rounded-full flex items-center justify-center shrink-0 ${phase.bg} ${phase.icon}`}>
+                        <ChevronRight className="w-3 h-3" />
                       </div>
-                      <p className="text-[#94A3B8] leading-relaxed">{item}</p>
+                      <p className="text-[#94A3B8] text-sm leading-relaxed">{item}</p>
                     </div>
                   ))}
                 </div>
@@ -446,34 +471,45 @@ export default function PremiumReportPage() {
             ))}
           </div>
 
-          <h2 className="text-3xl font-bold mb-8 text-white flex items-center gap-3">
-            <Star className="text-[#F59E0B]" /> Recommended Career Paths
-          </h2>
-          
-          <div className="grid grid-cols-3 gap-6 flex-1">
-            <div className="bg-[#111827] border border-slate-800 p-6 rounded-3xl">
-              <h4 className="text-[#94A3B8] text-sm uppercase font-bold tracking-wider mb-4">Top Matches</h4>
-              <ul className="space-y-3">
-                {report.recommendedCareers.topMatching.map((c: string, i: number) => (
-                  <li key={i} className="text-white font-semibold bg-[#0B1020] p-4 rounded-xl border border-slate-800">{c}</li>
-                ))}
-              </ul>
+          <div className="grid grid-cols-2 gap-8">
+            <div>
+              <h2 className="text-2xl font-bold mb-6 text-white flex items-center gap-2">
+                <Star className="text-[#F59E0B]" /> Recommended Paths
+              </h2>
+              <div className="bg-[#111827] border border-slate-800 p-6 rounded-3xl space-y-6">
+                <div>
+                  <h4 className="text-[#94A3B8] text-xs uppercase font-bold tracking-wider mb-3">Top Matches</h4>
+                  <ul className="space-y-2">
+                    {report.recommendedCareers.topMatching.map((c: string, i: number) => (
+                      <li key={i} className="text-white font-semibold bg-[#0B1020] p-3 rounded-xl border border-slate-800">{c}</li>
+                    ))}
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="text-[#94A3B8] text-xs uppercase font-bold tracking-wider mb-3">Strong Alternatives</h4>
+                  <ul className="space-y-2">
+                    {report.recommendedCareers.alternative.map((c: string, i: number) => (
+                      <li key={i} className="text-white text-sm bg-[#0B1020] p-3 rounded-xl border border-slate-800">{c}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
             </div>
-            <div className="bg-[#111827] border border-slate-800 p-6 rounded-3xl">
-              <h4 className="text-[#94A3B8] text-sm uppercase font-bold tracking-wider mb-4">Strong Alternatives</h4>
-              <ul className="space-y-3">
-                {report.recommendedCareers.alternative.map((c: string, i: number) => (
-                  <li key={i} className="text-white font-medium bg-[#0B1020] p-4 rounded-xl border border-slate-800">{c}</li>
-                ))}
-              </ul>
-            </div>
-            <div className="bg-[#111827] border border-slate-800 p-6 rounded-3xl">
-              <h4 className="text-[#94A3B8] text-sm uppercase font-bold tracking-wider mb-4">Related Fields</h4>
-              <ul className="space-y-3">
-                {report.recommendedCareers.related.map((c: string, i: number) => (
-                  <li key={i} className="text-[#94A3B8] bg-[#0B1020] p-4 rounded-xl border border-slate-800">{c}</li>
-                ))}
-              </ul>
+
+            <div>
+              <h2 className="text-2xl font-bold mb-6 text-white flex items-center gap-2">
+                <Lightbulb className="text-[#22D3EE]" /> Future Growth Plan
+              </h2>
+              <div className="bg-[#111827] border border-slate-800 p-6 rounded-3xl h-full">
+                <ul className="space-y-4">
+                  {report.futureGrowthPlan?.map((plan: string, i: number) => (
+                    <li key={i} className="flex items-start gap-3">
+                      <div className="w-2 h-2 rounded-full bg-[#22D3EE] mt-2 shrink-0" />
+                      <p className="text-[#94A3B8] leading-relaxed">{plan}</p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
         </PageContainer>
@@ -498,20 +534,20 @@ export default function PremiumReportPage() {
             <div className="space-y-8">
               <div className="bg-[#111827] p-8 rounded-3xl border border-slate-800 h-full">
                 <h4 className="text-xl font-bold text-[#10B981] mb-4 flex items-center gap-2"><CheckCircle2 className="w-5 h-5"/> Child's Core Strengths</h4>
-                <p className="text-[#94A3B8] leading-relaxed text-lg">{report.parentConfidence.childStrengthAnalysis}</p>
+                <p className="text-[#94A3B8] leading-relaxed">{report.parentConfidence.childStrengthAnalysis}</p>
               </div>
             </div>
             <div className="space-y-8">
               <div className="bg-[#111827] p-8 rounded-3xl border border-slate-800 h-full">
                 <h4 className="text-xl font-bold text-[#7C3AED] mb-4 flex items-center gap-2"><Brain className="w-5 h-5"/> Observed Potential & Fit</h4>
-                <p className="text-[#94A3B8] leading-relaxed text-lg">{report.parentConfidence.observedPotential}</p>
+                <p className="text-[#94A3B8] leading-relaxed">{report.parentConfidence.observedPotential}</p>
               </div>
             </div>
             
             <div className="space-y-8">
               <div className="bg-[#111827] p-8 rounded-3xl border border-slate-800 h-full">
                 <h4 className="text-xl font-bold text-[#F59E0B] mb-4 flex items-center gap-2"><AlertTriangle className="w-5 h-5"/> Improvement Opportunities</h4>
-                <p className="text-[#94A3B8] leading-relaxed text-lg">{report.parentConfidence.improvementOpportunities}</p>
+                <p className="text-[#94A3B8] leading-relaxed">{report.parentConfidence.improvementOpportunities}</p>
               </div>
             </div>
             <div className="space-y-8">
