@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Line } from "react-chartjs-2";
 import { Activity, BookOpen, Target, TrendingUp, Download } from "lucide-react";
+import Image from "next/image";
+import Logo from "@/assets/logo/futureousai-logo.png";
 import { getRecommendations } from "@/data/careers";
 
 export default function ParentDashboard() {
@@ -50,9 +52,12 @@ export default function ParentDashboard() {
     <div className="min-h-[calc(100vh-4rem)] bg-muted/20 pb-20">
       <div className="bg-primary text-primary-foreground py-10 px-4">
         <div className="container mx-auto flex flex-col md:flex-row items-center justify-between">
-          <div>
-            <h1 className="text-3xl font-bold mb-2">Parent Dashboard</h1>
-            <p className="opacity-90">Monitoring Student Progress & Career Readiness</p>
+          <div className="flex items-center gap-4">
+            <Image src={Logo} alt="FutureousAI Logo" width={56} height={56} className="object-contain drop-shadow-md" />
+            <div>
+              <h1 className="text-3xl font-bold mb-2">Parent Dashboard</h1>
+              <p className="opacity-90">Monitoring Student Progress & Career Readiness</p>
+            </div>
           </div>
           <div className="mt-4 md:mt-0 flex gap-4">
              <button className="bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg font-medium flex items-center gap-2 transition-colors">

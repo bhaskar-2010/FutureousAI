@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
+import Logo from "@/assets/logo/futureousai-logo.png";
 import { motion } from "framer-motion";
 import { 
   Download, Brain, Target, Star, TrendingUp, Compass, ChevronRight, CheckCircle2, AlertTriangle, Users, BookOpen, User, Book, Zap, Lightbulb
@@ -198,7 +200,10 @@ export default function PremiumReportPage() {
         {children}
       </div>
       <div className="px-12 py-6 border-t border-slate-800 flex justify-between items-center text-[#94A3B8] text-sm mt-auto">
-        <div className="flex items-center gap-2"><Star className="w-4 h-4 text-[#7C3AED]" /> FutureousAI Assessment Report</div>
+        <div className="flex items-center gap-2">
+          <Image src={Logo} alt="Logo" width={16} height={16} className="object-contain" />
+          FutureousAI Assessment Report
+        </div>
         <div>{profile.name} • {profile.dreamCareer}</div>
       </div>
     </div>
@@ -233,8 +238,8 @@ export default function PremiumReportPage() {
           <div className="flex-1 flex flex-col justify-center items-center text-center relative h-full">
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#7C3AED]/10 blur-[120px] rounded-full pointer-events-none" />
             
-            <div className="w-24 h-24 rounded-3xl bg-[#111827] border border-slate-800 flex items-center justify-center shadow-[0_0_50px_rgba(124,58,237,0.2)] mb-12 relative z-10">
-              <Brain className="w-12 h-12 text-[#22D3EE]" />
+            <div className="w-24 h-24 rounded-3xl bg-[#111827] border border-slate-800 flex items-center justify-center shadow-[0_0_50px_rgba(124,58,237,0.2)] mb-12 relative z-10 p-4">
+              <Image src={Logo} alt="FutureousAI Logo" width={64} height={64} className="object-contain drop-shadow-[0_0_15px_rgba(124,58,237,0.5)]" />
             </div>
             
             <h3 className="text-[#22D3EE] font-bold tracking-[0.3em] uppercase text-sm mb-6 relative z-10">Confidential Assessment Report</h3>
@@ -581,7 +586,9 @@ export default function PremiumReportPage() {
               <div className="flex items-center justify-center gap-8 border-t border-slate-800 pt-12">
                 <div className="text-left">
                   <p className="text-sm text-[#94A3B8] uppercase tracking-wider mb-1">Assessed By</p>
-                  <p className="text-xl font-bold text-white flex items-center gap-2"><Brain className="w-5 h-5 text-[#7C3AED]"/> FutureousAI Intelligence Engine</p>
+                  <p className="text-xl font-bold text-white flex items-center gap-3">
+                    <Image src={Logo} alt="Logo" width={24} height={24} className="object-contain" /> FutureousAI Intelligence Engine
+                  </p>
                 </div>
                 <div className="w-px h-16 bg-slate-800" />
                 <div className="text-left">
