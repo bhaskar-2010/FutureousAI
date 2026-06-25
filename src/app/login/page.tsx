@@ -114,17 +114,20 @@ export default function LoginPage() {
   };
 
   const setupRecaptcha = () => {
-    if (!window.recaptchaVerifier) {
-      window.recaptchaVerifier = new RecaptchaVerifier(auth, "recaptcha-container", {
-        size: "invisible",
-        callback: (response: any) => {
-          // reCAPTCHA solved
-        },
-        "expired-callback": () => {
-          setError("reCAPTCHA expired. Please try again.");
-        }
-      });
+    if (window.recaptchaVerifier) {
+      window.recaptchaVerifier.clear();
+      window.recaptchaVerifier = null;
     }
+    
+    window.recaptchaVerifier = new RecaptchaVerifier(auth, "recaptcha-container", {
+      size: "invisible",
+      callback: (response: any) => {
+        // reCAPTCHA solved
+      },
+      "expired-callback": () => {
+        setError("reCAPTCHA expired. Please try again.");
+      }
+    });
   };
 
   const handleSendOtp = async (e: React.FormEvent) => {
