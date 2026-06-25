@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, ArrowLeft, Loader2, Target, Brain, ShieldAlert } from "lucide-react";
+import { QuestionText } from "@/components/ui/QuestionText";
 
 interface Question {
   id: string;
@@ -158,7 +159,7 @@ export default function CareerInterviewPage() {
               </div>
               
               <h2 className="text-xl md:text-2xl font-bold mb-8 leading-relaxed">
-                {currentQ.text}
+                <QuestionText text={currentQ.text} />
               </h2>
 
               <div className="space-y-4">

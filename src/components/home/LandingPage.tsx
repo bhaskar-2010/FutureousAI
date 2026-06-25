@@ -10,7 +10,7 @@ const features = [
   { icon: Brain, title: "Psychometric Testing", desc: "Scientific assessments measuring aptitude, personality, and interests.", color: "from-primary to-blue-400" },
   { icon: Target, title: "Data-Driven Matching", desc: "Map your unique cognitive profile to 50+ verified career domains.", color: "from-secondary to-purple-400" },
   { icon: BarChart3, title: "7-Page Premium Report", desc: "Identify core competencies, weaknesses, and a future growth plan.", color: "from-accent to-cyan-400" },
-  { icon: Sparkles, title: "Generative AI Counselor", desc: "24/7 personalized chat guidance using Gemini AI technology.", color: "from-primary to-secondary" },
+  { icon: Sparkles, title: "Generative AI Counselor", desc: "24/7 personalized chat guidance using Futureous AI technology.", color: "from-primary to-secondary" },
   { icon: Compass, title: "Strategic Roadmaps", desc: "Step-by-step guidance from Class 10/12 to your dream profession.", color: "from-secondary to-accent" },
   { icon: ShieldCheck, title: "Parent Confidence", desc: "Dedicated insights for parents to understand and support their child.", color: "from-accent to-primary" },
 ];

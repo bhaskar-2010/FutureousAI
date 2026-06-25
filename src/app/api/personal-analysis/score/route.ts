@@ -28,7 +28,20 @@ export async function POST(req: Request) {
       
       Aptitude Engagement Metric: ~${aptitudeScoreEstimation} / 100
       
-      Your task is to deeply analyze these inputs and generate a highly detailed, premium psychometric assessment report.
+      Your task is to deeply analyze these inputs and generate a highly personalized, evidence-based psychometric assessment report.
+      
+      CRITICAL INSTRUCTIONS FOR PERSONALIZATION AND INTELLIGENCE:
+      1. DO NOT use generic statements (e.g., "You have good analytical skills"). EVERY observation MUST be supported by actual assessment results (e.g., "Based on your strong performance in mathematics and logical reasoning, analytical thinking appears to be one of your strongest abilities.").
+      2. CAREER RECOMMENDATIONS MUST BE EVIDENCE-BASED:
+         - If strong in math, physics, analytical reasoning: recommend Engineering, Data Science, AI, Defence, Robotics, etc.
+         - If strong in biology, healthcare: recommend Medicine, Biotech, Genetics, Pharmacy, etc.
+         - If strong in commerce, financial reasoning: recommend CA, Finance, Economics, Business Management.
+         - If strong in humanities, social sciences: recommend Law, Public Administration, Psychology, Civil Services.
+         Provide realistic Match Percentages and justify every recommendation with supporting strengths and development areas.
+      3. STRENGTH ANALYSIS: Identify Academic, Cognitive, Leadership, Creativity, and Problem-Solving strengths based ONLY on the provided data.
+      4. IMPROVEMENT ANALYSIS (POSITIVE REINFORCEMENT): Use constructive language for weaknesses. Never use negative wording like "You are weak in mathematics". Instead use "Additional practice in mathematics may help improve confidence and performance in quantitative problem-solving."
+      5. ACTION PLAN: Generate a practical, highly specific action plan divided into Short-Term Goals (e.g., Improve analytical reasoning), Medium-Term Goals (e.g., Explore internships), and Long-Term Goals (e.g., Prepare for entrance examinations).
+      6. STREAM COMPATIBILITY: Include insights on stream compatibility (e.g., MPC, BiPC, Commerce, Humanities) based on performance in your analysis.
       
       Calculate Final Career Fit Score using exactly this formula:
       (Interest * 0.40) + (Personality * 0.25) + (Aptitude * 0.25) + (Commitment * 0.10).
@@ -39,7 +52,7 @@ export async function POST(req: Request) {
       Return ONLY raw JSON, exactly matching this structure (no markdown, no backticks):
       {
         "executiveSummary": {
-          "shortSummary": "string",
+          "shortSummary": "string (evidence-based)",
           "overallRecommendation": "string"
         },
         "scores": {
@@ -52,11 +65,11 @@ export async function POST(req: Request) {
         },
         "classification": "Strong Match",
         "detailedSkills": [
-          { "skill": "Leadership", "score": 82, "evaluation": "string" },
-          { "skill": "Communication", "score": 88, "evaluation": "string" },
-          { "skill": "Creativity", "score": 80, "evaluation": "string" },
-          { "skill": "Discipline", "score": 85, "evaluation": "string" },
-          { "skill": "Problem Solving", "score": 79, "evaluation": "string" }
+          { "skill": "Leadership", "score": 82, "evaluation": "string (evidence-based)" },
+          { "skill": "Communication", "score": 88, "evaluation": "string (evidence-based)" },
+          { "skill": "Creativity", "score": 80, "evaluation": "string (evidence-based)" },
+          { "skill": "Discipline", "score": 85, "evaluation": "string (evidence-based)" },
+          { "skill": "Problem Solving", "score": 79, "evaluation": "string (evidence-based)" }
         ],
         "subjectPerformance": [
           { "subject": "Mathematics", "score": 80, "analysis": "string" },
@@ -74,35 +87,35 @@ export async function POST(req: Request) {
           "workplaceBehavior": "string"
         },
         "strengthsAnalysis": [
-          { "title": "string", "description": "string", "careerImpact": "string" }
+          { "title": "string", "description": "string (evidence-based)", "careerImpact": "string" }
         ],
         "weaknessAnalysis": [
-          { "title": "string", "description": "string", "mitigationStrategy": "string" }
+          { "title": "string", "description": "string (constructive language only)", "mitigationStrategy": "string" }
         ],
         "roadmap": {
-          "shortTerm": ["string"],
-          "mediumTerm": ["string"],
-          "longTerm": ["string"]
+          "shortTerm": ["string (practical goals)"],
+          "mediumTerm": ["string (practical goals)"],
+          "longTerm": ["string (practical goals)"]
         },
         "futureGrowthPlan": [
-          "string"
+          "string (Include stream compatibility and future directions)"
         ],
         "recommendedCareers": {
-          "topMatching": ["string"],
+          "topMatching": ["string (evidence-based match)"],
           "alternative": ["string"],
           "related": ["string"]
         },
         "parentConfidence": {
           "confidenceScore": 85,
-          "childStrengthAnalysis": "string paragraph",
+          "childStrengthAnalysis": "string paragraph (evidence-based)",
           "observedPotential": "string paragraph",
-          "improvementOpportunities": "string paragraph",
+          "improvementOpportunities": "string paragraph (constructive)",
           "guidanceForParents": "string paragraph",
           "howToSupport": "string paragraph",
           "professionalSummary": "string paragraph"
         },
         "motivationalInsights": "string paragraph",
-        "finalVerdict": "string paragraph summarizing the overall assessment"
+        "finalVerdict": "string paragraph summarizing the overall assessment (highly personalized)"
       }
     `;
 

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Clock, AlertCircle, ArrowRight, ArrowLeft } from "lucide-react";
 import { auth, db } from "@/lib/firebase";
+import { QuestionText } from "@/components/ui/QuestionText";
 import { doc, setDoc } from "firebase/firestore";
 import { useAuth } from "@/components/providers/AuthContext";
 import { getQuestions, Question } from "@/data/questions";
@@ -166,7 +167,7 @@ export default function AptitudeTestPage() {
               className="bg-card border border-border rounded-2xl shadow-sm p-6 md:p-10"
             >
               <h2 className="text-xl md:text-2xl font-bold mb-8 leading-relaxed">
-                {currentQ.text}
+                <QuestionText text={currentQ.text} />
               </h2>
 
               <div className="space-y-4">
@@ -185,7 +186,7 @@ export default function AptitudeTestPage() {
                     }`}>
                       {key}
                     </div>
-                    <span className="text-lg">{value}</span>
+                    <span className="text-lg"><QuestionText text={value} /></span>
                   </button>
                 ))}
               </div>

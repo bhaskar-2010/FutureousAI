@@ -79,9 +79,6 @@ export default function PremiumReportPage() {
     setGeneratingPDF(true);
     
     try {
-      const pdf = new jsPDF('p', 'mm', 'a4');
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      
       const pages = [
         document.getElementById('pdf-page-1'),
         document.getElementById('pdf-page-2'),
@@ -90,11 +87,19 @@ export default function PremiumReportPage() {
         document.getElementById('pdf-page-5'),
         document.getElementById('pdf-page-6'),
         document.getElementById('pdf-page-7')
-      ];
+      ].filter(Boolean);
+
+      if (pages.length === 0) return;
+
+      const pdfWidth = 210; // Standard A4 width in mm
+      let pdf: jsPDF | null = null;
 
       for (let i = 0; i < pages.length; i++) {
         const pageElement = pages[i];
         if (!pageElement) continue;
+
+        const originalBorderRadius = pageElement.style.borderRadius;
+        const originalBorder = pageElement.style.border;
 
         pageElement.style.borderRadius = '0';
         pageElement.style.border = 'none';
@@ -106,22 +111,26 @@ export default function PremiumReportPage() {
           windowWidth: 1000
         });
         
-        pageElement.style.borderRadius = '1.5rem';
-        pageElement.style.border = '1px solid #1e293b';
+        pageElement.style.borderRadius = originalBorderRadius;
+        pageElement.style.border = originalBorder;
 
         const imgData = canvas.toDataURL('image/jpeg', 1.0);
+        const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
         
-        const imgProps = pdf.getImageProperties(imgData);
-        const height = (imgProps.height * pdfWidth) / imgProps.width;
-        
-        pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, height);
-        
-        if (i < pages.length - 1) {
-          pdf.addPage();
+        if (i === 0) {
+          pdf = new jsPDF({
+            orientation: "portrait",
+            unit: "mm",
+            format: [pdfWidth, pdfHeight]
+          });
+        } else {
+          pdf!.addPage([pdfWidth, pdfHeight], "portrait");
         }
+        
+        pdf!.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight);
       }
 
-      pdf.save(`FutureousAI_${profile.name}_Premium_Report.pdf`);
+      pdf!.save(`FutureousAI_${profile.name}_Premium_Report.pdf`);
     } catch (e) {
       console.error("PDF generation failed:", e);
       alert("Failed to generate PDF. Please try again.");

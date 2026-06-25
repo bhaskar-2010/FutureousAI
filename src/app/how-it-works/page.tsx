@@ -61,7 +61,7 @@ const steps = [
     icon: MessageSquare,
     step: "08",
     title: "Talk to AI Counselor",
-    desc: "Chat with our Gemini-powered AI counselor. Ask about specific exams, colleges, salaries, or day-to-day life in any career.",
+    desc: "Chat with our Futureous AI counselor. Ask about specific exams, colleges, salaries, or day-to-day life in any career.",
     color: "from-secondary to-purple-500",
   },
 ];

@@ -99,86 +99,30 @@ export default function AnalysisPage() {
     if (btn) btn.innerText = "Generating...";
 
     try {
-      // Build a white-bg printable div to avoid dark-mode rendering issues
-      const pdf = new jsPDF("p", "mm", "a4");
-      const pageWidth = pdf.internal.pageSize.getWidth();
-      const pageHeight = pdf.internal.pageSize.getHeight();
-      const margin = 14;
-      let y = margin;
+      const element = document.getElementById("analysis-report-content");
+      if (!element) return;
 
-      const addText = (text: string, size: number, bold = false, color = [30, 30, 60] as [number,number,number]) => {
-        if (!text) return;
-        pdf.setFontSize(size);
-        pdf.setFont("helvetica", bold ? "bold" : "normal");
-        pdf.setTextColor(...color);
-        const lines = pdf.splitTextToSize(String(text), pageWidth - margin * 2);
-        lines.forEach((line: string) => {
-          if (y > pageHeight - margin) { pdf.addPage(); y = margin + 10; }
-          pdf.text(line, margin, y);
-          y += size * 0.45;
-        });
-        y += 3;
-      };
-
-      const addSection = (title: string) => {
-        if (y > pageHeight - 30) { pdf.addPage(); y = margin; }
-        y += 4;
-        pdf.setFillColor(240, 245, 255);
-        pdf.roundedRect(margin - 4, y - 6, pageWidth - (margin - 4) * 2, 12, 2, 2, "F");
-        addText(title, 12, true, [30, 58, 138]);
-      };
-
-      // Header
-      pdf.setFillColor(30, 58, 138);
-      pdf.rect(0, 0, pageWidth, 32, "F");
-      pdf.setFontSize(20); pdf.setFont("helvetica", "bold"); pdf.setTextColor(255, 255, 255);
-      pdf.text("FutureousAI Career Report", margin, 15);
-      pdf.setFontSize(9); pdf.setFont("helvetica", "normal");
-      pdf.text(`Generated: ${new Date().toLocaleDateString("en-IN", { year: "numeric", month: "long", day: "numeric" })}`, margin, 25);
-      y = 42;
-
-      // Student Profile
-      addSection("Student Profile");
-      addText(`Name: ${profile?.name || "N/A"}`, 10);
-      addText(`Class: ${profile?.studentClass || "N/A"}   Stream: ${profile?.stream || "N/A"}`, 10);
-      addText(`Interests: ${profile?.interests?.join(", ") || "N/A"}`, 10);
-
-      // Aptitude Summary
-      addSection("Aptitude Test Summary");
-      const answered = results ? Object.keys(results.answers || {}).length : 0;
-      addText(`Questions Answered: ${answered} / 15`, 10);
-      addText(`Test Status: Completed`, 10);
-
-      // Cognitive Areas
-      addSection("Cognitive Strengths");
-      ["Numerical Ability", "Logical Reasoning", "Scientific Thinking", "Verbal Comprehension"].forEach(s => {
-        addText(`• ${s}`, 10);
+      const canvas = await html2canvas(element, { 
+        scale: 2, 
+        useCORS: true,
+        // Since it has dark mode elements, we capture as is
+        backgroundColor: null 
       });
 
-      addSection("Areas for Improvement");
-      ["Spatial Reasoning", "Mechanical Aptitude"].forEach(s => addText(`• ${s}`, 10));
-
-      // Career Recommendations
-      addSection("Top Career Recommendations");
-      recommendations.forEach((career: any, i: number) => {
-        addText(`${i + 1}. ${career.title}  (${career.matchScore}% Match)`, 11, true);
-        addText(`   Why: ${career.reason}`, 9, false, [80, 80, 120]);
-        addText(`   Exams: ${career.exams.join(", ")}`, 9, false, [80, 80, 120]);
-        addText(`   Demand: ${career.demand}`, 9, false, [80, 80, 120]);
-        y += 2;
+      const imgData = canvas.toDataURL('image/jpeg', 1.0);
+      
+      const pdfWidth = 210; // Standard A4 width in mm
+      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+      
+      // We use a dynamic format so the page height perfectly matches the content, avoiding ALL clipping
+      const pdf = new jsPDF({
+        orientation: "portrait",
+        unit: "mm",
+        format: [pdfWidth, pdfHeight]
       });
 
-      // Next Steps
-      addSection("Recommended Next Steps");
-      if (recommendations[0]) {
-        addText(recommendations[0].nextStep || "Consult the AI Counselor for personalized guidance.", 10);
-      }
-
-      // Footer
-      pdf.setFontSize(8); pdf.setTextColor(150, 150, 150);
-      pdf.text("FutureousAI · Know Yourself Before Choosing Your Future · futureousai.com", margin, pageHeight - 8);
-
-      pdf.save("FutureousAI-Career-Report.pdf");
+      pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight);
+      pdf.save(`FutureousAI_${profile.name || "Student"}_Career_Report.pdf`);
     } catch (e) {
       console.error("PDF generation failed:", e);
     } finally {
@@ -187,7 +131,7 @@ export default function AnalysisPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background pb-20">
+    <div id="analysis-report-content" className="min-h-screen bg-background pb-20">
       {/* Header */}
       <div className="relative pt-16 pb-24 px-4 overflow-hidden mesh-bg">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/30 via-secondary/20 to-accent/10" />

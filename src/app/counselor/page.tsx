@@ -46,7 +46,7 @@ export default function CounselorPage() {
       {
         id: "init",
         role: "model",
-        text: "Hello! I'm your **FutureousAI Career Counselor**, powered by Gemini AI. 🎯\n\nI know your profile and test results. Ask me anything about:\n- Career choices and their requirements\n- Entrance exams and preparation strategies\n- College selection and cut-offs\n- Day-to-day life in any career\n\nWhat would you like to know?",
+        text: "Hello! I'm your **Futureous AI Career Counselor**. 🎯\n\nI know your profile and test results. Ask me anything about:\n- Career choices and their requirements\n- Entrance exams and preparation strategies\n- College selection and cut-offs\n- Day-to-day life in any career\n\nWhat would you like to know?",
       },
     ]);
   }, [router]);
@@ -132,7 +132,7 @@ export default function CounselorPage() {
               )}
             </h1>
             <p className="text-xs text-muted-foreground">
-              {demoMode || isFallback ? "Powered by Local Career Intelligence" : "Powered by Google Gemini · Personalized to your profile"}
+              {demoMode || isFallback ? "Powered by Local Career Intelligence" : "Futureous AI Assistant · Personalized to your profile"}
             </p>
           </div>
         </div>
